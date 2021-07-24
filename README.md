@@ -1,46 +1,83 @@
-# Getting Started with Create React App
+# Cell Simulator App
+
+This is a Cell Simulator game.  This is the game of cells where they care about their cardinal neighbors -- those to the North,
+East, West and South and diagonal neighbors too.
+
+| ![Screenshot of the game](https://i.imgur.com/jDzJNPT.png) |
+| :-----------------------------------------: |
+|         _A screenshot of the game_          |
+
+[Try the live version on Vercel →](https://cell-simulator-app.vercel.app/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Requirements
 
-In the project directory, you can run:
+- At initial state, User should see an empty board.
+- User can make Cells "alive".
+- User can make Cells "dead".
+- User can trigger "next generation".
+- User can trigger a "reset" to the initial state.
 
-### `npm start`
+### Next generation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- When the next generation is running:
+  - A Cell with fewer than two live neighbours dies of under-population.
+  - A Cell with 2 or 3 live neighbours lives on to the next generation.
+  - A Cell with more than 3 live neighbours dies of overcrowding.
+  - An empty Cell with exactly 3 live neighbours "comes to life".
+  - A Cell who "comes to life" outside the board should wrap at the other side of the board.
+- Once the next generation is done, User can trigger "next generation" again.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+** Note: neighbors in this scenario are the cells directly North, East, South and West and diagonals too. **
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This app does many things including:
 
-### `npm run build`
+- Animated cellular automata
+- Reset button to clear the board
+- Next generation button to start the cell simulation
+- Sample stages of the Cell simulation below:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+First Generation 
+![](https://i.imgur.com/snk68gV.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Next Generation 
+![](https://i.imgur.com/khSZNBf.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Next Generation 
+![](https://i.imgur.com/5UVaUmU.png)
 
-### `npm run eject`
+Next Generation 
+![](https://i.imgur.com/khSZNBf.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Improvements roadmap
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Here's some things that should be improved further:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- [ ] More comprehensive tests
+- [ ] Custom input from user for number of rows and columns 
+- [ ] Better responsive design with CSS-grid implementation
+- [ ] Error Boundaries to stop the whole app crashing if there's a localised error
 
-## Learn More
+## Installation and Setup Instructions
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Installation:
+
+`npm install`  
+
+To Run Test Suite:  
+
+`npm test -u`  
+
+To Start Server:
+
+`npm start`  
+
+To Visit App:
+
+`localhost:3000`  
