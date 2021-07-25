@@ -12,6 +12,7 @@ export const generateNewGrid = (x:number,y:number):TCellGrid =>{
     }//end i
 
     return xGrid;
+
 }
 
 /*Update status in grid to dead or alive based on the current status */
@@ -27,8 +28,8 @@ export function countAliveNeighbours(
     grid: TCellGrid
   ): number {
     let neighbours = 0
-    const xMax = grid[0].length-1; 
-    const yMax = grid.length-1;
+    const xMax = grid.length-1;
+    const yMax = grid[0].length-1;
   
     for (let x = xPos - 1; x <= xPos + 1; x++) {
       for (let y = yPos - 1; y <= yPos + 1; y++) {
@@ -36,7 +37,9 @@ export function countAliveNeighbours(
          if (x < 0 || y < 0) continue
          if (x > xMax || y > yMax) continue
          if (x === xPos && y === yPos) continue
-         if (grid[x][y]) neighbours++
+         if (grid[x][y]){
+           neighbours++
+         } 
       }
     }
     return neighbours
@@ -66,9 +69,9 @@ export const executeGenRules = (cell: boolean, aliveNeighboursCount: number): bo
 export function generateNextGen(grid:TCellGrid): TCellGrid {
     const columns = grid[0].length
     const rows = grid.length
-    const nextGrid = generateNewGrid(grid.length, grid[0].length)
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < columns; x++) {
+    const nextGrid = generateNewGrid(rows, columns)    
+    for (let x = 0; x < rows; x++) {
+      for (let y = 0; y < columns; y++) {
         nextGrid[x][y] = executeGenRules(
           grid[x][y],
           countAliveNeighbours(x,y,grid)
@@ -76,17 +79,17 @@ export function generateNextGen(grid:TCellGrid): TCellGrid {
       }
     }
 
-    for (let y = -1; y < rows + 1; y++) {
-      for (let x = -1; x < columns + 1; x++) {
-        const isWrapReq = (x < 0 || y < 0 || x >= columns || y >= rows)
+    for (let x = -1; x < rows + 1; x++) {
+      for (let y = -1; y < columns + 1; y++) {
+        const isWrapReq = (x < 0 || y < 0 || x >= rows || y >= columns)
         if (isWrapReq) {
           const nextCellState = executeGenRules(
             false,
             countAliveNeighbours(x, y, grid)
           ) 
           if (nextCellState) {
-            const wrappedX = findWrapNumber(x, 0, columns - 1)
-            const wrappedY = findWrapNumber(y, 0, rows - 1)
+            const wrappedX = findWrapNumber(x, 0, rows - 1)
+            const wrappedY = findWrapNumber(y, 0, columns - 1)
             nextGrid[wrappedX][wrappedY] = true
           }
         }
